@@ -1,0 +1,24 @@
+syntax = "proto3";
+package bloat.rpc;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+option go_package = "rpc/bloat";
+
+message Blob {
+  string key = 1;
+  bool compressed = 2;
+  bytes value = 3;
+}
+
+message BlobRequest {
+  string key = 1;
+  bool compressed = 2;
+  int64 byte_size = 3;
+}
+
+service Bloat {
+  rpc GetBlob(BlobRequest) returns (Blob);
+}
