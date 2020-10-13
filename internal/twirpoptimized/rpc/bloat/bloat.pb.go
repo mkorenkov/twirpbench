@@ -5,7 +5,7 @@ package bloat
 
 import (
 	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
+	proto "github.com/gogo/protobuf/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -20,15 +20,12 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
+const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Blob struct {
-	Key                  string   `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
-	Compressed           bool     `protobuf:"varint,2,opt,name=compressed,proto3" json:"compressed,omitempty"`
-	Value                []byte   `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Key        string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Compressed bool   `protobuf:"varint,2,opt,name=compressed,proto3" json:"compressed,omitempty"`
+	Value      []byte `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
 }
 
 func (m *Blob) Reset()         { *m = Blob{} }
@@ -86,12 +83,9 @@ func (m *Blob) GetValue() []byte {
 }
 
 type BlobRequest struct {
-	Key                  string   `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
-	Compressed           bool     `protobuf:"varint,2,opt,name=compressed,proto3" json:"compressed,omitempty"`
-	ByteSize             int64    `protobuf:"varint,3,opt,name=byte_size,json=byteSize,proto3" json:"byte_size,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Key        string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Compressed bool   `protobuf:"varint,2,opt,name=compressed,proto3" json:"compressed,omitempty"`
+	ByteSize   int64  `protobuf:"varint,3,opt,name=byte_size,json=byteSize,proto3" json:"byte_size,omitempty"`
 }
 
 func (m *BlobRequest) Reset()         { *m = BlobRequest{} }
@@ -158,7 +152,7 @@ func init() {
 }
 
 var fileDescriptor_b158c6278faac91c = []byte{
-	// 238 bytes of a gzipped FileDescriptorProto
+	// 246 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0xcf, 0xcc, 0x2b, 0x49,
 	0x2d, 0xca, 0x4b, 0xcc, 0xd1, 0x2f, 0x2a, 0x48, 0xd6, 0x2f, 0x29, 0xcf, 0x2c, 0x2a, 0xc8, 0x2f,
 	0x28, 0xc9, 0xcc, 0xcd, 0xac, 0x4a, 0x4d, 0xd1, 0x4f, 0xca, 0xc9, 0x4f, 0x2c, 0xd1, 0x2b, 0x28,
@@ -171,9 +165,10 @@ var fileDescriptor_b158c6278faac91c = []byte{
 	0x4c, 0xaa, 0x2c, 0x49, 0x8d, 0x2f, 0xce, 0xac, 0x82, 0x18, 0xcd, 0x1c, 0xc4, 0x01, 0x12, 0x08,
 	0xce, 0xac, 0x4a, 0x35, 0x8a, 0xe4, 0x62, 0x75, 0x02, 0x39, 0x5d, 0x28, 0x80, 0x8b, 0xdd, 0x3d,
 	0xb5, 0x04, 0xec, 0x72, 0x55, 0x3d, 0x5c, 0x9e, 0xd3, 0x43, 0x72, 0x89, 0x94, 0x1c, 0x7e, 0x65,
-	0x4e, 0x5a, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x8c,
-	0xc7, 0x72, 0x0c, 0x51, 0x68, 0x81, 0x06, 0x0e, 0x63, 0xb0, 0xa6, 0x24, 0x36, 0x70, 0xa8, 0x1a,
-	0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x82, 0x12, 0x85, 0xba, 0x80, 0x01, 0x00, 0x00,
+	0x4e, 0x46, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84,
+	0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x85, 0x16, 0x78, 0xe0,
+	0xb0, 0x06, 0x6b, 0x4e, 0x62, 0x03, 0x87, 0xae, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xb4, 0xda,
+	0x5f, 0xf9, 0x88, 0x01, 0x00, 0x00,
 }
 
 func (m *Blob) Marshal() (dAtA []byte, err error) {
@@ -196,10 +191,6 @@ func (m *Blob) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
 	if len(m.Value) > 0 {
 		i -= len(m.Value)
 		copy(dAtA[i:], m.Value)
@@ -247,10 +238,6 @@ func (m *BlobRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.XXX_unrecognized != nil {
-		i -= len(m.XXX_unrecognized)
-		copy(dAtA[i:], m.XXX_unrecognized)
-	}
 	if m.ByteSize != 0 {
 		i = encodeVarintBloat(dAtA, i, uint64(m.ByteSize))
 		i--
@@ -304,9 +291,6 @@ func (m *Blob) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovBloat(uint64(l))
 	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
-	}
 	return n
 }
 
@@ -325,9 +309,6 @@ func (m *BlobRequest) Size() (n int) {
 	}
 	if m.ByteSize != 0 {
 		n += 1 + sovBloat(uint64(m.ByteSize))
-	}
-	if m.XXX_unrecognized != nil {
-		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
@@ -468,7 +449,6 @@ func (m *Blob) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}
@@ -593,7 +573,6 @@ func (m *BlobRequest) Unmarshal(dAtA []byte) error {
 			if (iNdEx + skippy) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
 			iNdEx += skippy
 		}
 	}

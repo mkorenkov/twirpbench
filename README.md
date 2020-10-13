@@ -26,6 +26,15 @@ BenchmarkTwirp/maxtwirp-gz-10M-16        	1000000000	         0.0304 ns/op	32866
 BenchmarkTwirp/maxtwirp-gz-100M-16       	1000000000	         0.267 ns/op	374342562278.78 MB/s	       352 TotalAlloc(MiB)	       0 B/op	       0 allocs/op
 ```
 
+Prerequisites:
+```
+brew install protobuf
+go install google.golang.org/protobuf/cmd/protoc-gen-go
+go get github.com/gogo/protobuf/protoc-gen-gofast
+#go get github.com/gogo/protobuf/protoc-gen-gogofast
+#go get github.com/gogo/protobuf/protoc-gen-gogofaster
+```
+
 default twirp generated code:
 ```
 protoc --proto_path=$GOPATH/src:. --twirp_out=internal --go_out=internal ./internal/rpc/twirpdefault/bloat.proto
@@ -34,5 +43,7 @@ protoc --proto_path=$GOPATH/src:. --twirp_out=internal --go_out=internal ./inter
 optimized twirp generated code:
 ```
 protoc --proto_path=$GOPATH/src:. --twirp_out=internal --gofast_out=internal ./internal/rpc/twirpoptimized/bloat.proto
+#protoc --proto_path=$GOPATH/src:. --twirp_out=internal --gogofast_out=internal ./internal/rpc/twirpoptimized/bloat.proto
+#protoc --proto_path=$GOPATH/src:. --twirp_out=internal --gogofaster_out=internal ./internal/rpc/twirpoptimized/bloat.proto
 patch -p1 < 0001-patch.patch
 ```
