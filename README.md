@@ -9,5 +9,4 @@ Or is it?
 ```
 protoc --proto_path=$GOPATH/src:. --twirp_out=internal/twirpdefault --go_out=internal/twirpdefault ./internal/rpc/bloat.proto
 protoc --proto_path=$GOPATH/src:. --twirp_out=internal/twirpoptimized --gofast_out=internal/twirpoptimized ./internal/rpc/bloat.proto
-#protoc --proto_path=$GOPATH/src:. --gofast_out=internal/io ./internal/rpc/bloat.proto
 ```
