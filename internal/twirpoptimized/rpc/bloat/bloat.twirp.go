@@ -18,6 +18,7 @@ import ioutil "io/ioutil"
 import http "net/http"
 import strconv "strconv"
 
+import protoio "github.com/gogo/protobuf/io"
 import jsonpb "github.com/golang/protobuf/jsonpb"
 import proto "github.com/golang/protobuf/proto"
 import twirp "github.com/twitchtv/twirp"
@@ -915,15 +916,7 @@ func doProtobufRequest(ctx context.Context, client HTTPClient, hooks *twirp.Clie
 		return ctx, errorFromResponse(resp)
 	}
 
-	respBodyBytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return ctx, wrapInternal(err, "failed to read response body")
-	}
-	if err = ctx.Err(); err != nil {
-		return ctx, wrapInternal(err, "aborted because context was done")
-	}
-
-	if err = proto.Unmarshal(respBodyBytes, out); err != nil {
+	if err = protoio.NewFullReader(resp.Body, 0).ReadMsg(out); err != nil {
 		return ctx, wrapInternal(err, "failed to unmarshal proto response")
 	}
 	return ctx, nil
