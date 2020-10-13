@@ -1,5 +1,5 @@
 syntax = "proto3";
-package bloat.rpc;
+package twirpdefault.bloat.rpc;
 option go_package = "twirpdefault/rpc/bloat";
 
 message Blob {
