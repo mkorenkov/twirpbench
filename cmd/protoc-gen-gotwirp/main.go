@@ -1,5 +1,3 @@
-// see https://github.com/gogo/protobuf/blob/master/protoc-gen-gofast/main.go
-
 package main
 
 import (
@@ -12,10 +10,8 @@ func main() {
 	files := req.GetProtoFile()
 
 	vanity.ForEachFile(files, vanity.TurnOffGogoImport)
-
-	//vanity.ForEachFile(files, vanity.TurnOnMarshalerAll)
-	vanity.ForEachFile(files, vanity.TurnOnSizerAll)
-	//vanity.ForEachFile(files, vanity.TurnOnUnmarshalerAll)
+	// no special features needed:
+	// see https://github.com/gogo/protobuf/blob/master/protoc-gen-gofast/main.go for comparison
 
 	resp := command.Generate(req)
 	command.Write(resp)
