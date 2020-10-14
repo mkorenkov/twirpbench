@@ -25,21 +25,38 @@ BenchmarkTwirp/maxtwirp-gz-10M-16        	1000000000	         0.0304 ns/op	32866
 BenchmarkTwirp/maxtwirp-gz-100M-16       	1000000000	         0.267 ns/op	374342562278.78 MB/s	       352 TotalAlloc(MiB)	       0 B/op	       0 allocs/op
 ```
 
-Prerequisites:
+## How to get these results for your project?
+
+### Prerequisites
 ```
 brew install protobuf
-go get google.golang.org/protobuf/cmd/protoc-gen-go
-go get github.com/twitchtv/twirp/protoc-gen-twirp
-go get github.com/mkorenkov/twirpbench/cmd/protoc-gen-gotwirp
+go get -u google.golang.org/protobuf/cmd/protoc-gen-go
+# get vanilla twirp protoc plugin
+go get -u github.com/twitchtv/twirp/protoc-gen-twirp
+# get minimal gogo/protobuf protoc plugin
+go get -u github.com/mkorenkov/twirpbench/cmd/protoc-gen-maxgo
+
+# install protoc plugin with ioutil.ReadAll fix
+git clone https://github.com/mkorenkov/twirp.git /tmp/twirp
+cd /tmp/twirp
+go build -o ~/bin/protoc-gen-maxtwirp ./protoc-gen-twirp
+cd - && rm -rf /tmp/twirp
 ```
 
-default twirp generated code:
+### check default twirp generated code
 ```
 protoc --proto_path=$GOPATH/src:. --twirp_out=internal --go_out=internal ./internal/rpc/twirpdefault/bloat.proto
 ```
 
-optimized twirp generated code:
+### get ioutil.ReadAll optimized protobuf code
+optimized twirp generated code (with `mkorenkov/twirp` protoc plugin):
 ```
-protoc --proto_path=$GOPATH/src:. --twirp_out=internal --gofasttwirp_out=internal ./internal/rpc/twirpoptimized/bloat.proto
+protoc --proto_path=$GOPATH/src:. --maxtwirp_out=internal --maxgo_out=internal ./internal/rpc/twirpoptimized/bloat.proto
+```
+
+NOTE: this is equivallent to manually applying `0001-patch.patch` to the generated file.
+```
+# `github.com/twitchtv/twirp` plugin will be used instead of `github.com/mkorenkov/twirp`
+protoc --proto_path=$GOPATH/src:. --twirp_out=internal --maxgo_out=internal ./internal/rpc/twirpoptimized/bloat.proto
 patch -p1 < 0001-patch.patch
 ```
