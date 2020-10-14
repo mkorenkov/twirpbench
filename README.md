@@ -3,7 +3,7 @@
 Twirp is [protobuf](https://developers.google.com/protocol-buffers/docs/proto3)-based service-to-service communication framework, similar to [gRPC](http://www.grpc.io/).
 Check out [twirp repo](https://github.com/twitchtv/twirp) to learn more.
 
-This benchmark repo allows your twirp client to get 2x better Total Allocations and 20% in latency by getting rid of unnecessary `ioutil.ReadAll(resp.Body)` allocations.
+This repo was created in attempt to improve protobuf twirp client. Replacing `ioutilReadAll` gives about 2x better Total Allocations and 20% in latency by getting rid of unnecessary `ioutil.ReadAll(resp.Body)` allocations. Unfortunately, golang protobuf implementation is not `io.Reader` friendly, so this performance win requires some jumps through the hoop.
 
 Benchmark results
 ```
