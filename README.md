@@ -3,8 +3,7 @@
 Twirp is [protobuf](https://developers.google.com/protocol-buffers/docs/proto3)-based service-to-service communication framework, similar to [gRPC](http://www.grpc.io/).
 Check out [twirp repo](https://github.com/twitchtv/twirp) to learn more.
 
-Unfrotunately, Twirp has some underlying implementation details that are extremely expensive and there's nothing you can do about it.
-Or is it?
+This benchmark repo allows your twirp client to get 2x better Total Allocations and 20% in latency by getting rid of unnecessary `ioutil.ReadAll(resp.Body)` allocations.
 
 Benchmark results
 ```
@@ -29,10 +28,9 @@ BenchmarkTwirp/maxtwirp-gz-100M-16       	1000000000	         0.267 ns/op	374342
 Prerequisites:
 ```
 brew install protobuf
-go install google.golang.org/protobuf/cmd/protoc-gen-go
-go get github.com/gogo/protobuf/protoc-gen-gofast
-#go get github.com/gogo/protobuf/protoc-gen-gogofast
-#go get github.com/gogo/protobuf/protoc-gen-gogofaster
+go get google.golang.org/protobuf/cmd/protoc-gen-go
+go get github.com/twitchtv/twirp/protoc-gen-twirp
+go get github.com/mkorenkov/twirpbench/cmd/protoc-gen-gotwirp
 ```
 
 default twirp generated code:
