@@ -37,10 +37,13 @@ go get -u github.com/twitchtv/twirp/protoc-gen-twirp
 go get -u github.com/mkorenkov/twirpbench/cmd/protoc-gen-maxgo
 
 # install protoc plugin with ioutil.ReadAll fix
-git clone https://github.com/mkorenkov/twirp.git /tmp/twirp
-cd /tmp/twirp
-go build -o ~/bin/protoc-gen-maxtwirp ./protoc-gen-twirp
-cd - && rm -rf /tmp/twirp
+# it's a hacky way due to `internal` module usage of `twitchtv/twirp` protoc plugin
+rm -rf "$GOPATH/src/github.com/twitchtv/twirp"
+mkdir -p "$GOPATH/src/github.com/twitchtv/twirp"
+git clone "https://github.com/mkorenkov/twirp.git" "$GOPATH/src/github.com/twitchtv/twirp"
+cd "$GOPATH/src/github.com/twitchtv/twirp"
+go build -o "$GOPATH/bin/protoc-gen-maxtwirp" ./protoc-gen-twirp
+rm -rf "$GOPATH/src/github.com/twitchtv/twirp"
 ```
 
 ### check default twirp generated code
