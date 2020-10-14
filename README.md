@@ -40,6 +40,6 @@ protoc --proto_path=$GOPATH/src:. --twirp_out=internal --go_out=internal ./inter
 
 optimized twirp generated code:
 ```
-protoc --proto_path=$GOPATH/src:. --twirp_out=internal --gotwirp_out=internal ./internal/rpc/twirpoptimized/bloat.proto
+protoc --proto_path=$GOPATH/src:. --twirp_out=internal --gofasttwirp_out=internal ./internal/rpc/twirpoptimized/bloat.proto
 patch -p1 < 0001-patch.patch
 ```
